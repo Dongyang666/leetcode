@@ -7,7 +7,6 @@ public class Hanoi {
       func(n - 1, from, to, help);
       func(1, from, help, to);
       func(n - 1, help, from, to);
-      System.out.println("{}}]]{}}{}{{{}{}{}{}{「」「」「」{}");
     }
   }
 
