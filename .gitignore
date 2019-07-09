@@ -53,3 +53,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+.idea/
+leetcode.iml
+out/
+
