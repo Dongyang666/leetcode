@@ -9,6 +9,21 @@ public class MaxSubArrayXor {
 
   private Node root = new Node();
 
+  public int maxXorSubArray(int[] nums) {
+    if (nums == null || nums.length == 0) return 0;
+    int max = Integer.MIN_VALUE;
+    int eor = 0;
+    MaxSubArrayXor maxSubArrayXor = new MaxSubArrayXor();
+    maxSubArrayXor.insert(0);
+    for (int i = 0; i < nums.length; i++) {
+      //
+      eor ^= nums[i];
+      max = Math.max(max, maxSubArrayXor.maxXor(eor));
+      maxSubArrayXor.insert(eor);
+    }
+    return max;
+  }
+
   /**
    * 前缀树插入节点
    *
