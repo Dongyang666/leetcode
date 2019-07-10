@@ -6,9 +6,45 @@
  * @history
  */
 public class MaxSubArrayXor {
-  public class Node {
-    Node[] root = new Node[2];
+
+  private Node root = new Node();
+
+  /**
+   * 前缀树插入节点
+   *
+   * @param num
+   */
+  public void insert(int num) {
+    Node cur = root;
+    for (int i = 31; i >= 0; i--) {
+      // 按位进行判断。
+      int path = (num >> i) & 1;
+      cur.nexts[path] = cur.nexts[path] == null ? new Node() : cur.nexts[path];
+      cur = cur.nexts[path];
+    }
   }
 
-  public void insert(int num) {}
+  /**
+   * 计算当前值可以取得的最大的异或值对象
+   *
+   * @param num
+   * @return
+   */
+  public int maxXor(int num) {
+    Node cur = root;
+    int res = 0;
+    for (int move = 31; move >= 0; move--) {
+      int path = (num >> move) & 1;
+      // best是选择异或最好的对象
+      int best = move == 31 ? path : path ^ 1;
+      best = cur.nexts[best] != null ? best : best ^ 1;
+      res |= (best ^ path) << move;
+      cur = cur.nexts[best];
+    }
+    return res;
+  }
+
+  public class Node {
+    Node[] nexts = new Node[2];
+  }
 }
