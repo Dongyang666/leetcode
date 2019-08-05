@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -6,9 +8,19 @@ import java.util.Map;
  * @author: dyliu7@iflytek.com
  * @created: Created in 2019/7/9 20:23
  * @lastModified
- * @history
+ * @history 一个小时0。34万 7万
  */
 public class MostSubArrayXorZore {
+
+  public static void main(String[] args) {
+    //
+
+    long time = 1564225166655L;
+    Date date = new Date(time);
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    String dateStr = sdf.format(date);
+    System.out.println(dateStr);
+  }
 
   public int mostEor(int[] nums) {
     int ans = 0;
