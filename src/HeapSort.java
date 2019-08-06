@@ -4,8 +4,6 @@ import java.util.Arrays;
  * @description: { }
  * @author: dyliu7@iflytek.com
  * @created: Created in 2019/06/05 10:22
- * @lastModified
- * @history
  */
 public class HeapSort {
 	public static void main(String[] args) {

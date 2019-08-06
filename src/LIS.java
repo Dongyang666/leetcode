@@ -4,8 +4,6 @@ import java.util.Arrays;
  * @description: {最长递增子序列} Longest Increasing Subsequence
  * @author: dyliu7@iflytek.com
  * @created: Created in 2019/05/13 19:32
- * @lastModified
- * @history
  */
 public class LIS {
 	private static int[] getdp(int[] arr) {
