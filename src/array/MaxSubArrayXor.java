@@ -1,3 +1,5 @@
+package array;
+
 /**
  * @description: { 求子数组的最大异或值---前缀树实现 o(n)}
  * @author: dyliu7@iflytek.com
@@ -9,8 +11,8 @@ public class MaxSubArrayXor {
 
 	public int maxXorSubArray(int[] nums) {
 		if (nums == null || nums.length == 0) {
-          return 0;
-        }
+			return 0;
+		}
 		int max = Integer.MIN_VALUE;
 		int eor = 0;
 		MaxSubArrayXor maxSubArrayXor = new MaxSubArrayXor();

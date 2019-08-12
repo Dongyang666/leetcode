@@ -1,3 +1,5 @@
+package tree;
+
 /**
  * @description: { 前缀树}
  * @author: dyliu7@iflytek.com

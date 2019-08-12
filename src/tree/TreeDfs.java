@@ -1,3 +1,5 @@
+package tree;
+
 import node.TreeNode;
 
 import java.util.Stack;
@@ -5,7 +7,7 @@ import java.util.Stack;
 /**
  * @description: { 二叉树的深度遍历递归和非递归版}
  * @author: dyliu7@iflytek.com
- * @created: Created in 2019/05/17 14:03
+ * @date: 2019/05/17 14:03
  */
 public class TreeDfs {
 	public static void main(String[] args) {
@@ -43,11 +45,11 @@ public class TreeDfs {
 				preNode = curNode;
 			} else {
 				if (curNode.right != null) {
-                    stack.push(curNode.right);
-                }
+					stack.push(curNode.right);
+				}
 				if (curNode.left != null) {
-                    stack.push(curNode.left);
-                }
+					stack.push(curNode.left);
+				}
 			}
 		}
 	}
@@ -86,11 +88,11 @@ public class TreeDfs {
 			root = stack.pop();
 			System.out.println(root.val);
 			if (root.right != null) {
-                stack.push(root.right);
-            }
+				stack.push(root.right);
+			}
 			if (root.left != null) {
-                stack.push(root.left);
-            }
+				stack.push(root.left);
+			}
 		}
 	}
 

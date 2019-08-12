@@ -1,3 +1,5 @@
+package string;
+
 /**
  * @description: {kmp算法,实现寻找子串出现的开始位置O（n） }
  * @author: dyliu7@iflytek.com
