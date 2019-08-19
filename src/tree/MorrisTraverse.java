@@ -4,11 +4,7 @@ import node.TreeNode;
 
 /**
  * missor遍历树 空间复杂度为（1）
- * 三个原则：
- * 1.当前节点没有左子树 直接划到右节点
- * 2.当前节点有左子树，如果左子树最右的节点指向null则代表第一次到当前节点，把左子树最右节点连到当前节点上
- * 3.当前节点有左子树，如果左子树最右的节点指向当前节点则代表第二次到达当前节点，把左子树最右节点置为null
- * 这样游历过的序列叫missor序列
+ * ˘ * 后序遍历，第二次到达是逆序打印左子树的右边界
  */
 public class MorrisTraverse {
 	private static void morrisIn(TreeNode head) {
@@ -24,16 +20,25 @@ public class MorrisTraverse {
 					leftTreeMostRight = leftTreeMostRight.right;
 				}
 				if (leftTreeMostRight.right == null) {
+					//先序遍历（有左子树来两次这个节点，第一次打印就是先序遍历，第二次来打印就是中序遍历）
+					System.out.println(cur.val);
 					leftTreeMostRight.right = cur;
 					cur = cur.left;
 					continue;
 				} else {
+					//中序遍历
+					System.out.println(cur.val);
 					leftTreeMostRight.right = null;
 				}
-			} else {
-				System.out.println(cur.val);
-				cur = cur.right;
 			}
+			//先序遍历
+			else {
+				System.out.println(cur.val);
+			}
+			//中序遍历
+			System.out.println(cur.val);
+			cur = cur.right;
+
 		}
 	}
 }
