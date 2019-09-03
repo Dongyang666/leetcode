@@ -6,8 +6,20 @@
  */
 public class BigIntegerAdd {
 	public static void main(String[] args) {
-		System.out.println(add("000000000000183", "000012812121"));
+		//System.out.println(Integer.MAX_VALUE);
+		System.out.println(manyAdd("0", "0111", "01234"));
 		StringBuilder s = new StringBuilder();
+	}
+
+	private static String manyAdd(String... values) {
+		if (values.length == 1) {
+			return values[0];
+		}
+		String res = "0";
+		for (int i = 0; i < values.length; i++) {
+			res = add(res, values[i]);
+		}
+		return res;
 	}
 
 	private static String add(String arg1, String arg2) {
@@ -22,6 +34,6 @@ public class BigIntegerAdd {
 			pre = addNum / 10;
 			sb.append(addNum % 10);
 		}
-		return sb.reverse().toString().replaceAll("^0*", "");
+		return sb.reverse().toString().replaceAll("^0{0," + (sb.length() - 1) + "}", "");
 	}
 }

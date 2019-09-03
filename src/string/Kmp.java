@@ -9,7 +9,7 @@ public class Kmp {
 	public static void main(String[] args) {
 		//
 
-		System.out.println(kmp("abcded", "bc"));
+		System.out.println(kmp("abcded", "ed"));
 	}
 
 	private static int kmp(String str, String mach) {

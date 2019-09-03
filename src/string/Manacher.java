@@ -23,7 +23,8 @@ public class Manacher {
 		// 记录最长回文串长度
 		int max = Integer.MIN_VALUE;
 		for (int i = 0; i < str.length; i++) {
-			// 如果当前位置已经超过可以扩到的最右位置，目前可知的最大半径只为1，不然置为关于index位置的对称位置可扩的最大位置值和当前位置距离最右位置中较小的那一个
+			// 如果当前位置已经超过可以扩到的最右位置，目前可知的最大半径只为1，
+			// 不然置为关于index位置的对称位置可扩的最大位置值和当前位置距离最右位置中较小的那一个
 			pArr[i] = pR > i ? Math.min(pArr[2 * index - i], pR - i) : 1;
 			// 开始进行原始匹配左右++进行扩。如果不相同证明当前位置已经扩到了直接break
 			while (i + pArr[i] < str.length && i - pArr[i] > -1) {

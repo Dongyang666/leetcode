@@ -21,7 +21,10 @@ public class TreeDfs {
 		TreeNode node2 = new TreeNode(2, node4, node5);
 		TreeNode node3 = new TreeNode(3, node6, node7);
 		TreeNode node1 = new TreeNode(1, node2, node3);
-		postOrderNonRecursive(node1);
+		preOrderNonRecursive(node1);
+		long s = Integer.MAX_VALUE + Integer.MAX_VALUE;
+		System.out.println(s);
+		MorrisTraverse.morrisIn(node1);
 	}
 
 	/**
@@ -40,7 +43,7 @@ public class TreeDfs {
 			// 是左右子树其中一个就证明访问过了直接输出当前节点即可，否则表示左右子树未访问，先把右树入栈，再把左树入栈。
 			if ((curNode.left == null && curNode.right == null)
 					|| (preNode != null && (preNode == curNode.left || preNode == curNode.right))) {
-				System.out.println(curNode.val);
+				System.out.print(curNode.val + " ");
 				stack.pop();
 				preNode = curNode;
 			} else {
@@ -69,7 +72,7 @@ public class TreeDfs {
 				root = root.left;
 			}
 			root = stack.pop();
-			System.out.println(root.val);
+			System.out.print(root.val + " ");
 			root = root.right;
 		}
 	}
@@ -86,7 +89,7 @@ public class TreeDfs {
 		stack.push(root);
 		while (!stack.isEmpty()) {
 			root = stack.pop();
-			System.out.println(root.val);
+			System.out.print(root.val + " ");
 			if (root.right != null) {
 				stack.push(root.right);
 			}
@@ -118,6 +121,6 @@ public class TreeDfs {
 			recursive(root.right);
 		}
 		// 后续遍历
-		System.out.println(root.val);
+		System.out.print(root.val + " ");
 	}
 }
