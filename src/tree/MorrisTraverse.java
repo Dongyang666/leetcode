@@ -40,6 +40,11 @@ public class MorrisTraverse {
 		}
 	}
 
+	/**
+	 * morris后续遍历，第二次到达某个节点，逆序打印右边界
+	 *
+	 * @param head
+	 */
 	public static void morrisPost(TreeNode head) {
 		if (head == null) {
 			return;

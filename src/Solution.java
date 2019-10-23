@@ -1,15 +1,14 @@
+import java.util.Arrays;
+
 /**
  * test class
  */
 class Solution {
 
 	public static void main(String[] args) {
-		/*HashMap<Integer, Integer> map = new HashMap<>();
-		map.entrySet().stream()
-				.sorted((o1, o2) -> o2.getValue().compareTo(o1.getValue()))
-				.map(Map.Entry::getKey)
-				.collect(Collectors.toList())
-				.subList(0, 1);*/
+		String s = "filcncncncn";
+		String[] cns = s.split("cn");
+		System.out.println(Arrays.toString(cns));
 
 	}
 
