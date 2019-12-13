@@ -12,45 +12,80 @@ import java.util.Arrays;
  * 2）如果有重复值则不能通过外排实现必须要使用动态规划
  */
 public class StringCross {
-	public static boolean isStringCross(String str1, String str2, String aim) {
-		if (aim.length() != str1.length() + str2.length()) {
-			return false;
-		}
-		char[] chars1 = str1.toCharArray();
-		char[] chars2 = str2.toCharArray();
-		char[] aims = aim.toCharArray();
-		return rec(chars1, chars1.length - 1, chars2, chars2.length - 1, aims, aims.length - 1);
-	}
+    public static boolean isStringCross(String str1, String str2, String aim) {
+        if (aim.length() != str1.length() + str2.length()) {
+            return false;
+        }
+        char[] chars1 = str1.toCharArray();
+        char[] chars2 = str2.toCharArray();
+        char[] aims = aim.toCharArray();
 
-	private static boolean rec(char[] chars1, int len1, char[] chars2, int len2, char[] aims, int lenA) {
-		if (len1 == -1) {
-			return Arrays.equals(
-					Arrays.copyOfRange(chars2, 0, len2 + 1),
-					Arrays.copyOfRange(aims, 0, lenA + 1));
-		}
-		if (len2 == -1) {
-			//len1 = len1 == -1 ? 0 : len1;
-			return Arrays.equals(
-					Arrays.copyOfRange(chars1, 0, len1 + 1),
-					Arrays.copyOfRange(aims, 0, lenA + 1));
-		}
-		if (lenA == -1) {
-			return len1 == -1 && len2 == -1;
-		}
-		if (aims[lenA] == chars1[len1] && aims[lenA] == chars2[len2]) {
-			return rec(chars1, len1 - 1, chars2, len2, aims, lenA - 1) |
-					rec(chars1, len1, chars2, len2 - 1, aims, lenA - 1);
-		}
-		if (aims[lenA] == chars1[len1]) {
-			return rec(chars1, len1 - 1, chars2, len2, aims, lenA - 1);
-		}
-		if (aims[lenA] == chars2[len2]) {
-			return rec(chars1, len1, chars2, len2 - 1, aims, lenA - 1);
-		}
-		return false;
-	}
+        System.out.println(dp(chars1, chars2, aims));
+        return rec(chars1, chars1.length - 1, chars2, chars2.length - 1, aims, aims.length - 1);
+    }
 
-	public static void main(String[] args) {
-		System.out.println(isStringCross("ab", "b12ab", "ab12abb"));
-	}
+    /**
+     *
+     */
+    private static boolean rec(char[] chars1, int len1, char[] chars2, int len2, char[] aims, int lenA) {
+        if (len1 == -1) {
+            return Arrays.equals(
+                    Arrays.copyOfRange(chars2, 0, len2 + 1),
+                    Arrays.copyOfRange(aims, 0, lenA + 1));
+        }
+        if (len2 == -1) {
+            //len1 = len1 == -1 ? 0 : len1;
+            return Arrays.equals(
+                    Arrays.copyOfRange(chars1, 0, len1 + 1),
+                    Arrays.copyOfRange(aims, 0, lenA + 1));
+        }
+        if (lenA == -1) {
+            return len1 == -1 && len2 == -1;
+        }
+        if (aims[lenA] == chars1[len1] && aims[lenA] == chars2[len2]) {
+            return rec(chars1, len1 - 1, chars2, len2, aims, lenA - 1) |
+                    rec(chars1, len1, chars2, len2 - 1, aims, lenA - 1);
+        }
+        if (aims[lenA] == chars1[len1]) {
+            return rec(chars1, len1 - 1, chars2, len2, aims, lenA - 1);
+        }
+        if (aims[lenA] == chars2[len2]) {
+            return rec(chars1, len1, chars2, len2 - 1, aims, lenA - 1);
+        }
+        return false;
+    }
+
+
+    public static boolean dp(char[] str1, char[] str2, char[] aim) {
+        boolean[][] dp = new boolean[str1.length + 1][str2.length + 1];
+        dp[0][0] = true;
+        //init 列
+        for (int i = 1; i <= str1.length; i++) {
+            if (aim[i - 1] != str1[i - 1]) {
+                break;
+            }
+            dp[i][0] = true;
+        }
+        //init 行
+        for (int i = 1; i <= str2.length; i++) {
+            if (aim[i - 1] != str2[i - 1]) {
+                break;
+            }
+            dp[0][i] = true;
+        }
+        for (int i = 1; i <= str1.length; i++) {
+            for (int j = 1; j <= str2.length; j++) {
+                if ((str1[i - 1] == aim[i + j - 1] && dp[i - 1][j])
+                        || (str2[j - 1] == aim[i + j - 1] && dp[i][j - 1])) {
+                    dp[i][j] = true;
+                }
+            }
+        }
+        return dp[str1.length][str2.length];
+    }
+    //空间压缩。O(n)
+
+    public static void main(String[] args) {
+        System.out.println(isStringCross("abc", "b12abd", "ab12abbcc"));
+    }
 }
