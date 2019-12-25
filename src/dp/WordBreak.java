@@ -1,7 +1,6 @@
 package dp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -44,29 +43,26 @@ public class WordBreak {
                 if (dp[j].size() > 0 && strings.contains(s.substring(j, i + 1))) {
                     for (String item : dp[j]) {
                         list.add(item + (item.equals("") ? "" : " ") + s.substring(j, i + 1));
-                        System.out.println(i);
                     }
                 }
             }
             dp[i + 1] = list;
         }
-        System.out.println(Arrays.deepToString(dp));
         return dp[s.length()];
     }
 
     public static void main(String[] args) {
-        String s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        ArrayList<String> wordDict = new ArrayList<>();
-        wordDict.add("a");
-        wordDict.add("aa");
-        wordDict.add("aaa");
-        wordDict.add("aaaa");
-        wordDict.add("aaaaa");
-        wordDict.add("aaaaaa");
-        wordDict.add("aaaaaaa");
-        wordDict.add("aaaaaaaa");
-        wordDict.add("aaaaaaaaa");
-        wordDict.add("aaaaaaaaaa");
-        System.out.println(wordBreak2(s, wordDict));
+        System.out.println(reverseString("hello"));
     }
+
+    public static String reverseString(String s) {
+        return rec(s, 0);
+    }
+
+    public static String rec(String s, int index) {
+        if (s.length() == 0 || index == s.length()) return "";
+        String res = rec(s, index + 1);
+        return res + s.charAt(index);
+    }
+
 }

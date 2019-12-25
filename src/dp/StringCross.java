@@ -83,9 +83,39 @@ public class StringCross {
         }
         return dp[str1.length][str2.length];
     }
+
     //空间压缩。O(n)
+    public static boolean isInterleave(String s1, String s2, String s3) {
+        if (s3.length() != s1.length() + s2.length()) {
+            return false;
+        }
+        char[] chars1 = s1.toCharArray();
+        char[] chars2 = s2.toCharArray();
+        char[] aim = s3.toCharArray();
+        boolean[] dp = new boolean[chars2.length + 1];
+        for (int i = 0; i <= chars1.length; i++) {
+            dp[0] = i == 0 ? true : dp[0] ? chars1[i - 1] == aim[i - 1] : false;
+
+            for (int j = 1; j <= chars2.length; j++) {
+                if (i == 0) {
+                    dp[j] = chars2[j - 1] == aim[j - 1];
+                    continue;
+                }
+                boolean up = dp[j];
+                boolean pre = dp[j - 1];
+                if ((chars1[i - 1] == aim[i + j - 1] && up)
+                        || (chars2[j - 1] == aim[i + j - 1] && pre)) {
+                    dp[j] = true;
+                } else {
+                    dp[j] = false;
+                }
+            }
+            System.out.println(Arrays.toString(dp));
+        }
+        return dp[chars2.length];
+    }
 
     public static void main(String[] args) {
-        System.out.println(isStringCross("abc", "b12abd", "ab12abbcc"));
+        isInterleave("db", "c", "cbb");
     }
 }
