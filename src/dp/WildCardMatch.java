@@ -17,7 +17,10 @@ public class WildCardMatch {
             return lenA == s.length();
         }
         if (lenA == s.length()) {
-            return rec(s, lenA, str2, lenP + 1);
+            for (int i = lenP; i < str2.length(); i++) {
+                if (str2.charAt(i) != '*') return false;
+            }
+            return true;
         }
         char p = str2.charAt(lenP);
         boolean res = false;
@@ -37,8 +40,11 @@ public class WildCardMatch {
     private static boolean dp(String s, String p) {
         boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
         dp[s.length()][p.length()] = true;
-        if (s == "" && p == "*") {
-            return true;
+        for (int i = p.length() - 1; i >= 0; i--) {
+            if (p.charAt(i) != '*') {
+                break;
+            }
+            dp[s.length()][i] = true;
         }
         for (int i = s.length() - 1; i >= 0; i--) {
             for (int j = p.length() - 1; j >= 0; j--) {
@@ -58,7 +64,5 @@ public class WildCardMatch {
     }
 
     public static void main(String[] args) {
-
-        System.out.println(isMatch("a", "a*****"));
     }
 }
