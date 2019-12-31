@@ -4,7 +4,7 @@ import java.util.Stack;
 
 /**
  * @author liudongyang
- * 给定一个矩阵，其中的值只有0和1，求内部全是1的最大的子矩 阵，返回该矩阵中有多少个1即可。
+ * 给定一个矩阵，其中的值只有0和1，求内部全是1的最大的子矩阵，返回该矩阵中有多少个1即可。
  * 二维数组压缩问题
  */
 public class MaximalRectangle {
@@ -12,11 +12,11 @@ public class MaximalRectangle {
 		int max = 0;
 		//压缩数组
 		int[] tmp = new int[arr[0].length];
-		for (int i = 0; i < arr.length; i++) {
+		for (int[] ints : arr) {
 			for (int j = 0; j < tmp.length; j++) {
 				int x = 0;
-				if (arr[i][j] != 0) {
-					x = tmp[j] + arr[i][j];
+				if (ints[j] != 0) {
+					x = tmp[j] + ints[j];
 				}
 				tmp[j] = x;
 			}
@@ -41,8 +41,7 @@ public class MaximalRectangle {
 			while (!stack.isEmpty() && arr[stack.peek()] >= cur) {
 				int pop = stack.pop();
 				int leftIndex = stack.isEmpty() ? -1 : stack.peek();
-				int rightIndex = i;
-				max = Math.max(max, arr[pop] * (rightIndex - leftIndex - 1 == 0 ? 1 : rightIndex - leftIndex - 1));
+				max = Math.max(max, arr[pop] * (i - leftIndex - 1 == 0 ? 1 : i - leftIndex - 1));
 			}
 			stack.push(i);
 		}
