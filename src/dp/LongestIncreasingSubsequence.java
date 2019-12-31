@@ -5,7 +5,7 @@ package dp;
  * @author: dyliu7@iflytek.com
  * @created: Created in 2019/05/13 19:32
  */
-public class LIS {
+public class LongestIncreasingSubsequence {
 	private static int[] getdp(int[] arr) {
 		int[] dp = new int[arr.length];
 		for (int i = 0; i < dp.length; i++) {
