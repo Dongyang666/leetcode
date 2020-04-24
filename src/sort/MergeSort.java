@@ -1,63 +1,100 @@
 package sort;
 
 import java.util.Arrays;
-
-import static sort.QuickSort.getRandomRrray;
+import java.util.Random;
 
 /**
- * @author liudongyang
- * 归并排序
+ * <p/>
+ * Description:
+ *
+ * @author dyliu7@iflytek.com
+ * @date 2020/04/24
  */
 public class MergeSort {
-	public static void sort(int[] arr) {
-		if (arr.length < 2) {
-			return;
-		}
-		mergeSort(arr, 0, arr.length - 1);
-	}
 
-	public static void mergeSort(int[] arr, int left, int right) {
-		if (left == right) {
-			return;
-		}
-		int mid = ((right - left) >> 1) + left;
-		mergeSort(arr, left, mid);
-		mergeSort(arr, mid + 1, right);
-		merge(arr, left, mid, right);
-	}
+    public static void mergeSort(int[] arr, int left, int right) {
+        if (arr.length == 0) return;
+        if (left == right) return;
+        int mid = left + ((right - left) >> 1);
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+        merge(arr, left, mid, right);
 
-	private static void merge(int[] arr, int left, int mid, int right) {
-		int[] help = new int[right - left + 1];
-		int helpIndex = 0;
-		int leftIndex = left;
-		int rightIndex = mid + 1;
-		while (leftIndex <= mid && rightIndex <= right) {
-			help[helpIndex++] = arr[leftIndex] > arr[rightIndex] ? arr[rightIndex++] : arr[leftIndex++];
-		}
-		while (leftIndex <= mid) {
-			help[helpIndex++] = arr[leftIndex++];
-		}
-		while (rightIndex <= right) {
-			help[helpIndex++] = arr[rightIndex++];
-		}
-		for (int i = 0; i < help.length; i++) {
-			arr[left + i] = help[i];
-		}
-	}
+    }
 
-	public static void main(String[] args) {
-		int count = 0;
-		while (true) {
-			int[] res = getRandomRrray();
-			QuickSort.bubleSort(res);
-			int[] res2 = Arrays.copyOf(res, res.length);
-			sort(res2);
-			if (!Arrays.equals(res, res2)) {
-				System.out.println(Arrays.toString(res));
-				System.out.println(Arrays.toString(res2));
-			}
-			//System.out.println(count++);
-		}
-	}
+    private static void merge(int[] arr, int left, int mid, int right) {
+        int[] temp = new int[right - left + 1];
+        int temIndex = 0;
+        int index1 = left;
+        int index2 = mid + 1;
+        while (index1 <= mid && index2 <= right) {
+            temp[temIndex++] = arr[index1] > arr[index2] ? arr[index2++] : arr[index1++];
+        }
+        while (index1 <= mid) {
+            temp[temIndex++] = arr[index1++];
+        }
+        while (index2 <= right) {
+            temp[temIndex++] = arr[index2++];
+        }
+        for (int value : temp) {
+            arr[left++] = value;
+        }
+    }
 
+
+    public static void main(String[] args) {
+        int count = 0;
+        while (true) {
+            int[] res = getRandomRrray();
+            bubleSort(res);
+            int[] res2 = Arrays.copyOf(res, res.length);
+            mergeSort(res2, 0, res.length - 1);
+            if (!Arrays.equals(res, res2)) {
+                System.out.println(Arrays.toString(res));
+                System.out.println(Arrays.toString(res2));
+            }
+            System.out.println(count++);
+        }
+    }
+   /* public static void main(String[] args) {
+        int[] arr = new int[]{908, -553, -101, 840, 96, -131, 112, -831, 772, 82, 90, -403, 490, 950, -427, 204};
+        mergeSort(arr, 0, arr.length - 1);
+        System.out.println(Arrays.toString(arr));
+        arr = new int[]{908, -553, -101, 840, 96, -131, 112, -831, 772, 82, 90, -403, 490, 950, -427, 204};
+        bubleSort(arr);
+        System.out.println(Arrays.toString(arr));
+    }*/
+
+    public static void bubleSort(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            boolean flag = true;
+            for (int j = 0; j < nums.length - 1 - i; j++) {
+                if (nums[j] > nums[j + 1]) {
+                    flag = false;
+                    swap(nums, j, j + 1);
+                }
+            }
+            if (flag) {
+                break;
+            }
+        }
+
+    }
+
+    public static int[] getRandomRrray() {
+        Random random = new Random();
+        int[] ints = new int[random.nextInt(20)];
+        for (int i = 0; i < ints.length; i++) {
+            int res = random.nextInt(1000);
+            ints[i] = (res & 1) == 1 ? res : res * -1;
+        }
+        return ints;
+
+    }
+
+    private static void swap(int[] nums, int left, int right) {
+        int tmp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = tmp;
+    }
 }
