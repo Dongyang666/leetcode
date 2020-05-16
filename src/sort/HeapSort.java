@@ -17,11 +17,11 @@ public class HeapSort {
 	public static void sort(int[] nums) {
 		int len = nums.length;
 		for (int i = len / 2 - 1; i >= 0; i--) {
-			heapify(nums, i, len);
+			heapifyMin(nums, i, len);
 		}
 		for (int i = len - 1; i > 0; i--) {
 			swap(nums, 0, i);
-			heapify(nums, 0, i);
+			heapifyMin(nums, 0, i);
 		}
 	}
 
@@ -49,9 +49,33 @@ public class HeapSort {
 				break;
 			}
 			left = largest * 2 + 1;
-			right = largest * 2 + 1;
+			right = largest * 2 + 2;
 			i = largest;
 		}
+	}
+
+	private static void heapifyMin(int[] nums, int i, int heapSize) {
+		int left = i * 2 + 1;
+		int right = i * 2 + 2;
+		int smallest = i;
+		while (left < heapSize) {
+			if (nums[left] < nums[smallest]) {
+				smallest = left;
+			}
+			if (right < heapSize && nums[right] < nums[smallest]) {
+				smallest = right;
+			}
+			if (smallest != i) {
+				swap(nums, i, smallest);
+			} else {
+				break;
+			}
+			left = smallest * 2 + 1;
+			right = smallest * 2 + 2;
+			i = smallest;
+
+		}
+
 	}
 
 	private static void swap(int[] nums, int left, int right) {

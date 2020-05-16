@@ -83,28 +83,28 @@ public class SegmentTree {
 	 * 在以treeID为根的线段树中[l...r]的范围里，搜索区间[queryl,queryr]的值
 	 *
 	 * @param treeIndex
-	 * @param l
-	 * @param r
+	 * @param start
+	 * @param end
 	 * @param queryL
 	 * @param queryR
 	 * @return
 	 */
-	private int query(int treeIndex, int l, int r, int queryL, int queryR) {
-		if (l == queryL && r == queryR) {
+	private int query(int treeIndex, int start, int end, int queryL, int queryR) {
+		if (start <= queryL && end >= queryR) {
 			return tree[treeIndex];
 		}
-		int mid = l + (r - l) / 2;
+		int mid = start + (end - start) / 2;
 		int leftTreeIndex = leftChild(treeIndex);
 		int rightTreeIndex = rightChild(treeIndex);
 		//要查的节点的最左边的值大于中间值 则说明要查寻的区间在右子树中。
 		if (queryL >= mid + 1) {
-			return query(rightTreeIndex, mid + 1, r, queryL, queryR);
+			return query(rightTreeIndex, mid + 1, end, queryL, queryR);
 		} else if (queryR <= mid) {
-			return query(leftTreeIndex, l, mid, queryL, queryR);
+			return query(leftTreeIndex, start, mid, queryL, queryR);
 		}
 		//分散在两个区间
-		int leftResult = query(leftTreeIndex, l, mid, queryL, mid);
-		int rightResult = query(rightTreeIndex, mid + 1, r, mid + 1, queryR);
+		int leftResult = query(leftTreeIndex, start, mid, queryL, mid);
+		int rightResult = query(rightTreeIndex, mid + 1, end, mid + 1, queryR);
 		return leftResult + rightResult;
 	}
 

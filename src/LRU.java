@@ -12,8 +12,6 @@ public class LRU {
 		public V value;
 
 		public Node(V value) {
-			this.next = next;
-			this.pre = pre;
 			this.value = value;
 		}
 	}
