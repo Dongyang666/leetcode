@@ -2,7 +2,7 @@ package dp;
 
 /**
  * @description: { 最少编辑代价}
- * @author: dyliu7@iflytek.com
+ * @author: liudongyang
  * @date: 2019/9/5 16:50
  */
 public class MinEditCost {

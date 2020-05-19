@@ -7,7 +7,7 @@ import java.util.Queue;
 
 /**
  * @description: { }
- * @author: dyliu7@iflytek.com
+ * @author: liudongyang
  * @date: 2019/12/13 15:35
  */
 public class Codec {

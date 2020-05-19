@@ -7,7 +7,7 @@ import java.util.Random;
  * <p/>
  * Description:
  *
- * @author dyliu7@iflytek.com
+ * @author liudongyang
  * @date 2020/04/24
  */
 public class MergeSort {
@@ -42,7 +42,7 @@ public class MergeSort {
     }
 
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         int count = 0;
         while (true) {
             int[] res = getRandomRrray();
@@ -55,15 +55,12 @@ public class MergeSort {
             }
             System.out.println(count++);
         }
-    }
-   /* public static void main(String[] args) {
-        int[] arr = new int[]{908, -553, -101, 840, 96, -131, 112, -831, 772, 82, 90, -403, 490, 950, -427, 204};
+    }*/
+    public static void main(String[] args) {
+        int[] arr = new int[]{9, -5, -1, 8, 6, 2, 1, 4, 3};
         mergeSort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
-        arr = new int[]{908, -553, -101, 840, 96, -131, 112, -831, 772, 82, 90, -403, 490, 950, -427, 204};
-        bubleSort(arr);
-        System.out.println(Arrays.toString(arr));
-    }*/
+    }
 
     public static void bubleSort(int[] nums) {
         for (int i = 0; i < nums.length; i++) {

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * @description: {给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 '?' 和 '*' 的通配符匹配。 }
- * @author: dyliu7@iflytek.com
+ * @author: liudongyang
  * @date: 2019/12/25 16:10
  */
 public class WildCardMatch {

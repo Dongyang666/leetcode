@@ -2,7 +2,7 @@ package array;
 
 /**
  * @description: { }
- * @author: dyliu7@iflytek.com
+ * @author: liudongyang
  * @date: 2019/12/3 14:49
  */
 public class RevolveBinarySearch {
