@@ -2,7 +2,7 @@ package dp;
 
 /**
  * @description: { 股票买卖问题}
- * @author: dyliu7@iflytek.com
+ * @author: liudongyang
  * @date: 2019/12/17 10:02
  */
 public class BuyStock {

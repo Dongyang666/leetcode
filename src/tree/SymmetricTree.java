@@ -4,7 +4,7 @@ import node.TreeNode;
 
 /**
  * @description: { 判断是不是对称二叉树}
- * @author: dyliu7@iflytek.com
+ * @author: liudongyang
  * @date: 2019/11/22 10:14
  */
 public class SymmetricTree {

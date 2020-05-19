@@ -1,15 +1,10 @@
 package dp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @description: { 单词拆分}
- * @author: dyliu7@iflytek.com
+ * @author: liudongyang
  * @date: 2019/12/20 15:19
  */
 public class WordBreak {

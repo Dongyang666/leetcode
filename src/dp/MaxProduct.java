@@ -4,7 +4,7 @@ import java.text.ParseException;
 
 /**
  * @description: { 乘积最大子序列}
- * @author: dyliu7@iflytek.com
+ * @author: liudongyang
  * @date: 2019/12/16 15:44
  */
 public class MaxProduct {
