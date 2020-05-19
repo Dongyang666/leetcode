@@ -1,3 +1,5 @@
+package track;
+
 /**
  * @author liudongyang
  * N皇后问题

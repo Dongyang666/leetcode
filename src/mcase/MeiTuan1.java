@@ -1,3 +1,5 @@
+package mcase;
+
 import java.util.Scanner;
 
 /**
