@@ -1,5 +1,5 @@
 public class FastPowerOperation {
-    // 10
+	// 10
     /*public static long pow(long res, long pow) {
         long tmp = 1;
         long i = res;
@@ -10,10 +10,10 @@ public class FastPowerOperation {
         }
         return tmp;
     }*/
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
 
-        System.out.println();
+		System.out.println(Integer.MAX_VALUE);
 
-    }
+	}
 }

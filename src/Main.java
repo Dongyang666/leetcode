@@ -24,10 +24,12 @@ class Main {
 				int s = res[j][i];
 			}
 		}
+
 		long end = System.nanoTime();
 		System.out.println(start1 - start);
 		System.out.println(end - start1);*/
 		//minJumps(new int[]{100, -23, -23, 404, 100, 23, 23, 23, 3, 404});
+		
 		videoStitching(new int[][]{{0, 1}, {6, 8}, {0, 2}, {5, 6}, {0, 4}, {0, 3}, {6, 7}, {1, 3}, {4, 7}, {1, 4}, {2, 5}, {2, 6}, {3, 4}, {4, 5}, {5, 7}, {6, 9}}, 9);
 
 	}
