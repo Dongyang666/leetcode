@@ -2,6 +2,7 @@ import java.util.Random;
 
 /**
  *
+ * https://blog.csdn.net/moakun/article/details/79997037
  * @author liudongyang
  */
 public class SkipList<K extends Comparable<K>, V> {
@@ -34,7 +35,17 @@ public class SkipList<K extends Comparable<K>, V> {
 			// 如果超过了高度需要新加一层
 			if (curLevel >= level) {
 				level++;
-				
+				// 新的头结点
+				SkipNode<K, V> newLevelHead = new SkipNode<>();
+				/*newLevelHead.right = insertNode;
+				insertNode.left = newLevelHead;*/
+
+				top.down = newLevelHead;
+				newLevelHead.up = top;
+			}
+
+			while (node.up != null) {
+				node = node.left;
 			}
 		}
 
@@ -51,7 +62,7 @@ public class SkipList<K extends Comparable<K>, V> {
 	private SkipNode<K, V> findNode(K k) {
 		SkipNode<K, V> p = top;
 		while (true) {
-			while (p.right != null && p.right.k.compareTo(k) <= 0) {
+			while ((p.right != null && p.right.k.compareTo(k) <= 0)) {
 				p = p.right;
 			}
 			if (p.down != null) {
