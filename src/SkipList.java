@@ -7,60 +7,75 @@ import java.util.Random;
  */
 public class SkipList<K extends Comparable<K>, V> {
 
-	private SkipNode<K, V> top;
+	private Entry<K, V> top;
 
 	private int size;
 	private int level;
-	private Random random;
+	private final Random random;
 
 	private static final double PROBABILITY = 0.5;
 
 	public SkipList() {
 		random = new Random();
-		top = new SkipNode<>();
+		top = new Entry<>();
+		top.down = new Entry<>();
 	}
 
 	public void put(K k, V v) {
 		// 这个节点可能和插入的节点相同。也可能是刚好小于插入节点的节点
-		SkipNode<K, V> node = findNode(k);
-		if (node.k.compareTo(k) == 0) {
+		Entry<K, V> node = findNode(k);
+		if (node.k != null && node.k.compareTo(k) == 0) {
 			node.v = v;
 			return;
 		}
-		SkipNode<K, V> insertNode = new SkipNode<>(k, v);
+		Entry<K, V> insertNode = new Entry<>(k, v);
 		// 把插入节点先插入到第0层去
 		insertBack(node, insertNode);
 		int curLevel = 0;
 		while (random.nextDouble() < PROBABILITY) {
+
 			// 如果超过了高度需要新加一层
 			if (curLevel >= level) {
 				level++;
-				// 新的头结点
-				SkipNode<K, V> newLevelHead = new SkipNode<>();
+				// 新的头结点 空头
+				Entry<K, V> newLevelHead = new Entry<>();
 				/*newLevelHead.right = insertNode;
 				insertNode.left = newLevelHead;*/
-
+				top.down.up = newLevelHead;
+				newLevelHead.down = top.down;
 				top.down = newLevelHead;
-				newLevelHead.up = top;
 			}
 
-			while (node.up != null) {
+			while (node.left != null && node.up == null) {
 				node = node.left;
 			}
+			node = node.up;
+
+			// 上层节点只用保存k就可以了
+			Entry<K, V> upInsertNode = new Entry<>(k, null);
+			insertBack(node, upInsertNode);
+			upInsertNode.down = insertNode;
+			insertNode.up = upInsertNode;
+			insertNode = upInsertNode;
+			curLevel++;
 		}
-
-
+		size++;
 	}
 
-	private void insertBack(SkipNode<K, V> preNode, SkipNode<K, V> insertNode) {
+	private void insertBack(Entry<K, V> preNode, Entry<K, V> insertNode) {
+		if (preNode.right == null) {
+			preNode.right = insertNode;
+			insertNode.left = preNode;
+			return;
+		}
 		preNode.right.left = insertNode;
 		insertNode.right = preNode.right;
 		preNode.right = insertNode;
 		insertNode.left = preNode;
 	}
 
-	private SkipNode<K, V> findNode(K k) {
-		SkipNode<K, V> p = top;
+	private Entry<K, V> findNode(K k) {
+		Entry<K, V> p = top;
 		while (true) {
 			while ((p.right != null && p.right.k.compareTo(k) <= 0)) {
 				p = p.right;
@@ -79,61 +94,110 @@ public class SkipList<K extends Comparable<K>, V> {
 	 * @param k
 	 * @return
 	 */
-	public V search(K k) {
-		SkipNode<K, V> findNode = findNode(k);
+	public V get(K k) {
+		Entry<K, V> findNode = findNode(k);
 		if (k.compareTo(findNode.k) == 0) {
 			return findNode.v;
 		}
 		return null;
 	}
 
+	public V remove(K k) {
+		if (k == null) return null;
+		Entry<K, V> findNode = findNode(k);
+		if (k.compareTo(findNode.k) == 0) {
+			return deleteNode(findNode);
+		}
+		return null;
+	}
 
-	public static class SkipNode<K extends Comparable<K>, V> {
-		private SkipNode<K, V> up = null;
-		private SkipNode<K, V> down = null;
-		private SkipNode<K, V> left = null;
-		private SkipNode<K, V> right = null;
+	public V remove(K k, V v) {
+		if (k == null) return null;
+		Entry<K, V> findNode = findNode(k);
+		if (k.compareTo(findNode.k) == 0 && v.equals(findNode.getV())) {
+			return deleteNode(findNode);
+		}
+		return null;
+	}
+
+	public int size() {
+		return size;
+	}
+
+	public boolean isEmpty() {
+		return size == 0;
+	}
+
+	public void clear() {
+		size = 0;
+		top = new Entry<>();
+		top.down = new Entry<>();
+		level = 0;
+	}
+
+	private V deleteNode(Entry<K, V> deleteNode) {
+		V oldValue = deleteNode.getV();
+		while (deleteNode != null) {
+			if (deleteNode.right == null) {
+				deleteNode.left.right = null;
+				deleteNode.left = null;
+			} else {
+				deleteNode.left.right = deleteNode.right;
+				deleteNode.right.left = deleteNode.left;
+			}
+			deleteNode = deleteNode.up;
+		}
+		return oldValue;
+
+	}
+
+
+	public static class Entry<K extends Comparable<K>, V> {
+		private Entry<K, V> up = null;
+		private Entry<K, V> down = null;
+		private Entry<K, V> left = null;
+		private Entry<K, V> right = null;
 
 		private K k;
 		private V v;
 
-		public SkipNode() {
+		public Entry() {
 		}
 
-		public SkipNode(K k, V v) {
+		public Entry(K k, V v) {
 			this.k = k;
 			this.v = v;
 		}
 
-		public SkipNode<K, V> getUp() {
+		public Entry<K, V> getUp() {
 			return up;
 		}
 
-		public void setUp(SkipNode<K, V> up) {
+		public void setUp(Entry<K, V> up) {
 			this.up = up;
 		}
 
-		public SkipNode<K, V> getDown() {
+		public Entry<K, V> getDown() {
 			return down;
 		}
 
-		public void setDown(SkipNode<K, V> down) {
+		public void setDown(Entry<K, V> down) {
 			this.down = down;
 		}
 
-		public SkipNode<K, V> getLeft() {
+		public Entry<K, V> getLeft() {
 			return left;
 		}
 
-		public void setLeft(SkipNode<K, V> left) {
+		public void setLeft(Entry<K, V> left) {
 			this.left = left;
 		}
 
-		public SkipNode<K, V> getRight() {
+		public Entry<K, V> getRight() {
 			return right;
 		}
 
-		public void setRight(SkipNode<K, V> right) {
+		public void setRight(Entry<K, V> right) {
 			this.right = right;
 		}
 
@@ -153,5 +217,4 @@ public class SkipList<K extends Comparable<K>, V> {
 			this.v = v;
 		}
 	}
-
 }
