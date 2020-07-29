@@ -1,5 +1,7 @@
 package dp;
 
+import java.util.Arrays;
+
 /**
  * @author liudongyang
  * 换钱问题
@@ -80,6 +82,26 @@ public class CoinsWay {
     public static void main(String[] args) {
         System.out.println(process2(new int[]{5, 10, 25, 1}, 15));
         System.out.println(process3(new int[]{5, 10, 25, 1}, 15));
+    }
 
+    public int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
+        int ans = nums[0] + nums[1] + nums[3];
+        for (int i = 0; i < nums.length - 2; i++) {
+            int p = i + 1;
+            int q = nums.length - 1;
+            while (p < q) {
+                int val = nums[i] + nums[p] + nums[q];
+                ans = Math.abs(target - ans) > Math.abs(val - target) ? ans : val;
+                if (target > val) {
+                    p++;
+                } else if (target < val) {
+                    q--;
+                } else {
+                    return val;
+                }
+            }
+        }
+        return ans;
     }
 }

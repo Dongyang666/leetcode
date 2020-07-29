@@ -11,7 +11,7 @@ public class Kmp {
     public static void main(String[] args) {
         //
 
-        System.out.println(kmp("hello", "ll"));
+        System.out.println(kmp("hello", "abc1abc1"));
     }
 
     private static int kmp(String str, String mach) {
