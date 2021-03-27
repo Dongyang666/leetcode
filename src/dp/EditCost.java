@@ -14,6 +14,7 @@ public class EditCost {
 		return rec(chars1, chars2, insert, delete, replace, str1.length() - 1, str2.length() - 1);
 	}
 
+
 	public static int rec(char[] ch1, char[] ch2, int insert, int delete, int replace, int len1, int len2) {
 		if (len1 == -1) {
 			return len2 == -1 ? 0 : len2 * insert;
@@ -25,6 +26,7 @@ public class EditCost {
 		if (ch1[len1] == ch2[len2]) {
 			return rec(ch1, ch2, insert, delete, replace, len1 - 1, len2 - 1);
 		}
+
 		int left = rec(ch1, ch2, insert, delete, replace, len1, len2 - 1) + delete;
 		int up = rec(ch1, ch2, insert, delete, replace, len1 - 1, len2) + insert;
 		int leftUpper = rec(ch1, ch2, insert, delete, replace, len1 - 1, len2 - 1) + replace;

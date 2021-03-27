@@ -6,6 +6,7 @@ package tree;
  * @created: Created in 2019/7/8 15:37
  */
 public class TrieTree {
+	 
 	private Node root;
 
 	public class Node {
