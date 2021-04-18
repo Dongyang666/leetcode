@@ -9,7 +9,7 @@ public class BinarySearch {
     /**
      * 基础二分查找
      *
-     * @param nums   被查找数组
+     * @param nums 被查找数组
      * @param target 目标值
      * @return 目标值在数组中的位置，找不见则返回-1
      */
@@ -118,10 +118,20 @@ public class BinarySearch {
         }
         return left - 1;
     }
-    
 
-    public static void main(String[] args) {
-        int[][] arr = new int[][]{{2, 5, 8}, {4, 0, -1}};
-        System.out.println(upper(new int[]{1, 2, 3, 3, 4, 5, 5, 5, 5, 7, 8, 8, 8, 8, 8}, 8));
+
+    public static int upper(int[] arr, int left, int target) {
+        int right = arr.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (arr[mid] >= target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
     }
+
+
 }
